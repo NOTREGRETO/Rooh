@@ -4,11 +4,11 @@
   --font-sans: var(--font-outfit);
   --font-serif: var(--font-dm-serif);
   
-  --color-soft-pink: #F8BBD0;
-  --color-accent-pink: #FF4D8D;
-  --color-accent-pink-hover: #FF6FA5;
+  --color-soft-pink: #FFCDD2;
+  --color-accent-pink: #E53935;
+  --color-accent-pink-hover: #EF5350;
   --color-bg-white: #FFFFFF;
-  --color-bg-light-pink: #FFF0F5;
+  --color-bg-light-pink: #FFF5F5;
   --color-text-dark: #1A1A1A;
   --color-text-body: #555555;
   @keyframes float {
