@@ -169,6 +169,7 @@ export default function WatchTheVibe() {
       </section>
 
       <style jsx>{`
+        .watch-section {
           position: relative;
           z-index: 5;
         }
@@ -217,7 +218,7 @@ function ReelBox({ reel, index }: { reel: typeof reels[0], index: number }) {
 
   return (
     <div
-      className="relative flex-none w-[85vw] md:w-[clamp(260px,28vw,360px)] max-w-[90vw] aspect-[9/16] rounded-none overflow-hidden group cursor-pointer border border-white/5 h-full will-change-transform"
+      className="relative flex-none w-[85vw] md:w-[clamp(260px,28vw,360px)] max-w-[90vw] aspect-[9/16] rounded-none overflow-hidden group cursor-pointer border border-white/5"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
