@@ -1,4 +1,4 @@
 #!/bin/bash
 git add .
-git commit -m "Implement vertical full-screen snapping for Reels and fix structural code issues"
+git commit -m "Restore video visibility: revert overflow and snap settings while keeping scale fixes"
 git push origin main
