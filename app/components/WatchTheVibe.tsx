@@ -118,9 +118,9 @@ export default function WatchTheVibe() {
   return (
     <div 
       ref={triggerRef} 
-      className={`bg-white w-full overflow-hidden border-y border-black/5 transition-opacity duration-1000 ${mounted ? 'opacity-100' : 'opacity-0'}`}
+      className={`watch-section relative w-full overflow-hidden border-y border-black/5 transition-opacity duration-1000 ${mounted ? 'opacity-100' : 'opacity-0'} z-[5] mt-20 md:mt-32 pt-16 md:pt-24`}
     >
-      <section className="h-screen flex flex-col justify-center py-0 px-6 md:px-12 relative overflow-hidden">
+      <section className="min-h-screen flex flex-col justify-center py-12 px-6 md:px-12 relative overflow-hidden safari-fix">
         <div className="w-full mb-12 relative z-20">
           <div className="flex flex-col md:flex-row items-end justify-between gap-8">
             <motion.div 
@@ -134,11 +134,11 @@ export default function WatchTheVibe() {
                 <div className="w-12 h-px bg-black/30" />
                 <span className="text-[14px] font-chalkboard tracking-[0.2em] uppercase text-black/40">EXPERIENCE THE FLOW</span>
               </div>
-              <h2 className="text-[50px] md:text-[100px] font-little-bean leading-[0.85] uppercase tracking-tighter mb-8 text-black">
+              <h2 className="text-[clamp(2.5rem,8vw,6.5rem)] font-little-bean leading-[0.85] uppercase tracking-tighter mb-8 text-black">
                 WATCH THE <br />
                 <span className="text-outline italic">VIBE.</span>
               </h2>
-              <p className="text-2xl md:text-3xl text-black/60 font-adabelle leading-relaxed max-w-xl">
+              <p className="text-xl md:text-3xl text-black/60 font-adabelle leading-relaxed max-w-xl">
                 Where high-contrast motion meets minimalist strategy. A curated sensory experience by Roohi.
               </p>
             </motion.div>
@@ -161,6 +161,12 @@ export default function WatchTheVibe() {
       </section>
 
       <style jsx>{`
+        .watch-section {
+          position: relative;
+          z-index: 5;
+          margin-top: 80px;
+          padding-top: 60px;
+        }
         .text-outline {
           -webkit-text-stroke: 1px rgba(0, 0, 0, 0.4);
           color: transparent;
