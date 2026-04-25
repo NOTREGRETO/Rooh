@@ -1,4 +1,4 @@
 #!/bin/bash
 git add .
-git commit -m "Fix global overlapping issues, section flow, and z-index hierarchy"
+git commit -m "Integrate marquee into hero section and clean up separate component"
 git push origin main
