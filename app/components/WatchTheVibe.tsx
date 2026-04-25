@@ -84,7 +84,7 @@ export default function WatchTheVibe() {
           start: "top top",
           end: () => `+=${items.scrollWidth - window.innerWidth}`, 
           pin: true,
-          scrub: 2,
+          scrub: 1,
           invalidateOnRefresh: true,
           anticipatePin: 1,
         },
@@ -148,11 +148,16 @@ export default function WatchTheVibe() {
         <div className="relative w-full z-10 flex items-center overflow-visible">
           <div 
             ref={containerRef}
-            className="flex flex-nowrap gap-6 md:gap-8 w-max px-10 md:px-20 items-stretch snap-x snap-mandatory"
+            className="flex flex-nowrap gap-6 md:gap-8 w-max items-stretch snap-x snap-mandatory reel-container"
           >
+            {/* Edge Spacers */}
+            <div className="flex-none w-1 md:w-4" />
+            
             {reels.map((reel, index) => (
               <ReelBox key={reel.id} reel={reel} index={index} />
             ))}
+
+            <div className="flex-none w-1 md:w-4" />
           </div>
         </div>
 
@@ -163,9 +168,20 @@ export default function WatchTheVibe() {
           position: relative;
           z-index: 5;
         }
+        .reel-container {
+          padding-left: max(24px, calc((100vw - 1200px) / 2));
+          padding-right: max(24px, calc((100vw - 1200px) / 2));
+          scroll-behavior: smooth;
+        }
         .text-outline {
           -webkit-text-stroke: 1px rgba(0, 0, 0, 0.4);
           color: transparent;
+        }
+        @media (max-width: 768px) {
+          .reel-container {
+            padding-left: 20px;
+            padding-right: 20px;
+          }
         }
       `}</style>
     </div>
@@ -205,7 +221,7 @@ function ReelBox({ reel, index }: { reel: typeof reels[0], index: number }) {
 
   return (
     <div
-      className="relative flex-none w-[80vw] md:w-[clamp(260px,30vw,380px)] aspect-[9/16] rounded-none overflow-hidden group cursor-pointer border border-white/5 snap-start h-full"
+      className="relative flex-none w-[85vw] md:w-[clamp(260px,28vw,360px)] max-w-[90vw] aspect-[9/16] rounded-none overflow-hidden group cursor-pointer border border-white/5 snap-start h-full"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >

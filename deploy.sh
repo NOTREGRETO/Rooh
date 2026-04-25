@@ -1,4 +1,4 @@
 #!/bin/bash
 git add .
-git commit -m "Fix horizontal reel scroll: remove clipping and ensure full visibility"
+git commit -m "Refine reel scroll: centered padding, snap alignment, and edge spacers"
 git push origin main
