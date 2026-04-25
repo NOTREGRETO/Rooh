@@ -77,12 +77,12 @@ export default function WatchTheVibe() {
       };
 
       gsap.to(items, {
-        x: () => -(items.scrollWidth - window.innerWidth + (window.innerWidth * 0.1)),
+        x: () => -(items.scrollWidth - window.innerWidth),
         ease: "none",
         scrollTrigger: {
           trigger: triggerRef.current,
           start: "top top",
-          end: () => `+=${items.scrollWidth}`, 
+          end: () => `+=${items.scrollWidth - window.innerWidth}`, 
           pin: true,
           scrub: 2,
           invalidateOnRefresh: true,
@@ -145,11 +145,10 @@ export default function WatchTheVibe() {
           </div>
         </div>
 
-        {/* Animation Content */}
-        <div className="relative w-full z-10 flex items-center">
+        <div className="relative w-full z-10 flex items-center overflow-visible">
           <div 
             ref={containerRef}
-            className="flex flex-nowrap gap-8 md:gap-12 w-max px-[5vw] lg:px-[10vw] items-stretch"
+            className="flex flex-nowrap gap-6 md:gap-8 w-max px-10 md:px-20 items-stretch snap-x snap-mandatory"
           >
             {reels.map((reel, index) => (
               <ReelBox key={reel.id} reel={reel} index={index} />
@@ -206,7 +205,7 @@ function ReelBox({ reel, index }: { reel: typeof reels[0], index: number }) {
 
   return (
     <div
-      className="relative shrink-0 w-[80vw] md:w-[320px] lg:w-[380px] aspect-[9/16] rounded-none overflow-hidden group cursor-pointer border border-white/5"
+      className="relative flex-none w-[80vw] md:w-[clamp(260px,30vw,380px)] aspect-[9/16] rounded-none overflow-hidden group cursor-pointer border border-white/5 snap-start h-full"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
