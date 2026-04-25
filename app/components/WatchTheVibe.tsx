@@ -83,7 +83,7 @@ export default function WatchTheVibe() {
         ease: "none",
         scrollTrigger: {
           trigger: triggerRef.current,
-          start: "top top",
+          start: "top top+=80", 
           end: () => `+=${items.scrollWidth - window.innerWidth}`, 
           pin: true,
           scrub: 1,
@@ -124,7 +124,7 @@ export default function WatchTheVibe() {
       ref={triggerRef} 
       className={`watch-section relative w-full overflow-hidden border-y border-black/5 transition-opacity duration-1000 ${mounted ? 'opacity-100' : 'opacity-0'} z-[5]`}
     >
-      <section className="min-h-screen flex flex-col justify-center py-12 px-6 md:px-12 relative overflow-hidden safari-fix">
+      <section className="reel-section min-h-screen flex flex-col justify-center py-12 relative overflow-hidden safari-fix">
         <div className="w-full mb-12 relative z-20">
           <div className="flex flex-col md:flex-row items-end justify-between gap-8">
             <motion.div 
@@ -152,16 +152,11 @@ export default function WatchTheVibe() {
         <div className="relative w-full z-10 flex items-center overflow-visible">
           <div 
             ref={containerRef}
-            className="flex flex-nowrap gap-6 md:gap-8 w-max items-stretch reel-container will-change-transform"
+            className="flex flex-nowrap gap-6 md:gap-8 w-max items-stretch reel-container snap-x snap-mandatory will-change-transform"
           >
-            {/* Edge Spacers */}
-            <div className="flex-none w-1 md:w-4" />
-            
             {reels.map((reel, index) => (
               <ReelBox key={reel.id} reel={reel} index={index} />
             ))}
-
-            <div className="flex-none w-1 md:w-4" />
           </div>
         </div>
 
@@ -172,10 +167,16 @@ export default function WatchTheVibe() {
           position: relative;
           z-index: 5;
         }
-        .reel-container {
+        .reel-section {
           padding-left: max(24px, calc((100vw - 1200px) / 2));
           padding-right: max(24px, calc((100vw - 1200px) / 2));
+        }
+        .reel-container {
+          padding-left: 0;
+          padding-right: 40px;
+          scroll-padding-left: 40px;
           scroll-behavior: smooth;
+          scroll-snap-type: x mandatory;
         }
         .text-outline {
           -webkit-text-stroke: 1px rgba(0, 0, 0, 0.4);
@@ -183,8 +184,12 @@ export default function WatchTheVibe() {
         }
         @media (max-width: 768px) {
           .reel-container {
-            padding-left: 20px;
             padding-right: 20px;
+            scroll-padding-left: 16px;
+          }
+          .reel-section {
+            padding-left: 16px;
+            padding-right: 16px;
           }
         }
       `}</style>
@@ -225,7 +230,7 @@ function ReelBox({ reel, index }: { reel: typeof reels[0], index: number }) {
 
   return (
     <div
-      className="relative flex-none w-[85vw] md:w-[clamp(260px,28vw,360px)] max-w-[90vw] aspect-[9/16] rounded-none overflow-hidden group cursor-pointer border border-white/5 h-full will-change-transform"
+      className="relative flex-none w-[85vw] md:w-[clamp(280px,30vw,360px)] max-w-[90vw] aspect-[9/16] rounded-none overflow-hidden group cursor-pointer border border-white/5 h-full will-change-transform snap-start"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
