@@ -1,4 +1,4 @@
 #!/bin/bash
 git add .
-git commit -m "Finalize reel layout: remove parent overflow-hidden and implement snap-center"
+git commit -m "Implement vertical full-screen snapping for Reels and fix structural code issues"
 git push origin main

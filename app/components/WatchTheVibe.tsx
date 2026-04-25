@@ -65,108 +65,63 @@ export default function WatchTheVibe() {
 
   useEffect(() => {
     setMounted(true);
- 
-    let ctx = gsap.context(() => {
-      if (!containerRef.current || !triggerRef.current) return;
-
-      const items = containerRef.current;
-      
-      const getScrollAmount = () => {
-        let itemsWidth = items.scrollWidth;
-        return -(itemsWidth - window.innerWidth + (window.innerWidth * 0.05));
-      };
-
-      const scrollAmount = items.scrollWidth - window.innerWidth;
-      
-      gsap.to(items, {
-        x: () => -(items.scrollWidth - window.innerWidth),
-        ease: "none",
-        scrollTrigger: {
-          trigger: triggerRef.current,
-          start: "top top",
-          end: () => `+=${items.scrollWidth - window.innerWidth}`, 
-          pin: true,
-          scrub: 1,
-          invalidateOnRefresh: true,
-          anticipatePin: 1,
-        },
-      });
- 
-      // Staggered entrance for cards
-      gsap.from(items.children, {
-        y: 100,
-        opacity: 0,
-        duration: 1.5,
-        stagger: 0.15,
-        ease: "power4.out",
-        scrollTrigger: {
-          trigger: triggerRef.current,
-          start: "top 85%",
-        }
-      });
-    }, triggerRef);
-
+    
+    // Refresh ScrollTrigger to ensure correct snapping heights
     const refresh = () => ScrollTrigger.refresh();
     window.addEventListener('load', refresh);
-    
-    const timers = [500, 1500, 3000].map(ms => setTimeout(refresh, ms));
+    const timer = setTimeout(refresh, 1000);
 
     return () => {
-      ctx.revert();
       window.removeEventListener('load', refresh);
-      timers.forEach(clearTimeout);
+      clearTimeout(timer);
     };
   }, []);
 
 
   return (
     <div 
-      ref={triggerRef} 
-      className={`watch-section relative w-full border-y border-black/5 transition-opacity duration-1000 ${mounted ? 'opacity-100' : 'opacity-0'} z-[5] overflow-visible`}
+      className={`watch-section relative w-full h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth transition-opacity duration-1000 ${mounted ? 'opacity-100' : 'opacity-0'} z-[5] bg-white overflow-x-hidden`}
     >
-      <section className="min-h-screen flex flex-col justify-center py-12 px-6 md:px-12 relative overflow-visible safari-fix">
-        <div className="w-full mb-12 relative z-20">
-          <div className="flex flex-col md:flex-row items-end justify-between gap-8">
-            <motion.div 
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="max-w-3xl"
-            >
-              <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-px bg-black/30" />
-                <span className="text-[14px] font-chalkboard tracking-[0.2em] uppercase text-black/40">EXPERIENCE THE FLOW</span>
-              </div>
-              <h2 className="text-[clamp(2.5rem,8vw,6.5rem)] font-little-bean leading-[0.85] uppercase tracking-tighter mb-8 text-black">
-                WATCH THE <br />
-                <span className="text-outline italic">VIBE.</span>
-              </h2>
-              <p className="text-xl md:text-3xl text-black/60 font-adabelle leading-relaxed max-w-xl">
-                Where high-contrast motion meets minimalist strategy. A curated sensory experience by Roohi.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-
-        <div className="relative w-full z-10 flex items-center overflow-visible">
-          <div 
-            ref={containerRef}
-            className="flex flex-nowrap gap-6 md:gap-8 w-max items-stretch reel-container will-change-transform snap-x snap-mandatory"
+      {/* 1. Header Snap Point */}
+      <section className="h-screen w-full flex flex-col justify-center px-6 md:px-12 snap-start relative overflow-visible bg-white">
+        <div className="w-full max-w-7xl mx-auto relative z-20">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="flex flex-col items-start gap-4"
           >
-            {/* Edge Spacers */}
-            <div className="flex-none w-1 md:w-5" />
-            
-            {reels.map((reel, index) => (
-              <ReelBox key={reel.id} reel={reel} index={index} />
-            ))}
-
-            <div className="flex-none w-1 md:w-5" />
-          </div>
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-12 h-px bg-black/30" />
+              <span className="text-[14px] font-chalkboard tracking-[0.2em] uppercase text-black/40">EXPERIENCE THE FLOW</span>
+            </div>
+            <h2 className="text-[clamp(3rem,10vw,8rem)] font-little-bean leading-[0.8] uppercase tracking-tighter mb-6 text-black">
+              WATCH THE <br />
+              <span className="text-outline italic">VIBE.</span>
+            </h2>
+            <p className="text-xl md:text-4xl text-black/60 font-adabelle leading-relaxed max-w-2xl">
+              Where high-contrast motion meets minimalist strategy. Scroll down to experience the curation.
+            </p>
+            <div className="mt-12 animate-bounce">
+              <svg className="w-8 h-8 text-black/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </div>
+          </motion.div>
         </div>
-
         <div className="absolute inset-0 grid-bg opacity-[0.03] pointer-events-none" />
       </section>
+
+      {/* 2. Reels Snap Points */}
+      {reels.map((reel, index) => (
+        <section 
+          key={reel.id} 
+          className="h-screen w-full flex items-center justify-center snap-start relative bg-white border-b border-black/[0.03] overflow-visible"
+        >
+          <ReelBox reel={reel} index={index} />
+        </section>
+      ))}
 
       <style jsx>{`
         .watch-section {
@@ -227,7 +182,7 @@ function ReelBox({ reel, index }: { reel: typeof reels[0], index: number }) {
 
   return (
     <div
-      className="relative flex-none w-[85vw] md:w-[clamp(260px,28vw,360px)] aspect-[9/16] rounded-2xl overflow-hidden group cursor-pointer border border-white/5 bg-black snap-center"
+      className="relative w-[90vw] md:w-[450px] h-[85vh] max-h-[850px] rounded-2xl overflow-hidden group cursor-pointer border border-black/5 bg-black"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
