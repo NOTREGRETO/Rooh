@@ -165,7 +165,6 @@ export default function WatchTheVibe() {
           </div>
         </div>
 
-        <div className="absolute inset-0 grid-bg opacity-[0.03] pointer-events-none" />
       </section>
 
       <style jsx>{`

@@ -1,4 +1,4 @@
 #!/bin/bash
 git add .
-git commit -m "Restore video visibility: revert overflow and snap settings while keeping scale fixes"
+git commit -m "Remove grid background lines from all sections"
 git push origin main
