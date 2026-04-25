@@ -19,7 +19,7 @@ export default function Hero() {
   ];
 
   return (
-    <section className="relative w-full min-h-screen flex flex-col justify-between bg-white pt-20 safari-fix">
+    <section className="relative w-full min-h-screen flex flex-col justify-between bg-white grid-bg pt-20 safari-fix">
       {/* 1. Floating Images Container - z-index: 1 */}
       <div className="absolute inset-0 pointer-events-none z-[1]">
         <div className="relative w-full h-full max-w-[1800px] mx-auto">
@@ -109,7 +109,11 @@ export default function Hero() {
         </div>
       )}
 
-
+      {/* Decorative center grid lines - z-index: 0 */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <div className="absolute top-1/2 left-0 w-full h-px bg-black/[0.04]" />
+        <div className="absolute left-1/2 top-0 w-px h-full bg-black/[0.04]" />
+      </div>
 
       <style jsx>{`
         .hero-content {
