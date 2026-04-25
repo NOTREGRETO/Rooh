@@ -1,4 +1,4 @@
 #!/bin/bash
 git add .
-git commit -m "Fix video visibility: repair broken CSS and remove height constraints on reels"
+git commit -m "Implement universal scroll fix: centered padding, 9:16 aspect ratio, and object-contain"
 git push origin main

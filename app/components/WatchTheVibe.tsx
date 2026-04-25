@@ -152,16 +152,16 @@ export default function WatchTheVibe() {
         <div className="relative w-full z-10 flex items-center overflow-visible">
           <div 
             ref={containerRef}
-            className="flex flex-nowrap gap-6 md:gap-8 w-max px-6 md:px-12 items-stretch reel-container will-change-transform"
+            className="flex flex-nowrap gap-6 md:gap-8 w-max items-stretch reel-container will-change-transform"
           >
             {/* Edge Spacers */}
-            <div className="flex-none w-1 md:w-4" />
+            <div className="flex-none w-1 md:w-5" />
             
             {reels.map((reel, index) => (
               <ReelBox key={reel.id} reel={reel} index={index} />
             ))}
 
-            <div className="flex-none w-1 md:w-4" />
+            <div className="flex-none w-1 md:w-5" />
           </div>
         </div>
 
@@ -174,11 +174,19 @@ export default function WatchTheVibe() {
           z-index: 5;
         }
         .reel-container {
+          padding-left: max(20px, calc((100vw - 1200px) / 2));
+          padding-right: max(20px, calc((100vw - 1200px) / 2));
           scroll-behavior: smooth;
         }
         .text-outline {
           -webkit-text-stroke: 1px rgba(0, 0, 0, 0.4);
           color: transparent;
+        }
+        @media (max-width: 768px) {
+          .reel-container {
+            padding-left: 16px;
+            padding-right: 16px;
+          }
         }
       `}</style>
     </div>
@@ -218,14 +226,14 @@ function ReelBox({ reel, index }: { reel: typeof reels[0], index: number }) {
 
   return (
     <div
-      className="relative flex-none w-[85vw] md:w-[clamp(260px,28vw,360px)] max-w-[90vw] aspect-[9/16] rounded-none overflow-hidden group cursor-pointer border border-white/5"
+      className="relative flex-none w-[85vw] md:w-[clamp(260px,28vw,360px)] aspect-[9/16] rounded-2xl overflow-hidden group cursor-pointer border border-white/5 bg-black"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <video
         ref={videoRef}
         src={reel.video}
-        className="absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
+        className="absolute inset-0 w-full h-full object-contain transition-all duration-1000 group-hover:scale-105"
         autoPlay
         muted
         loop
