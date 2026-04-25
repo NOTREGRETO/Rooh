@@ -12,8 +12,8 @@ export default function Hero() {
   }, []);
 
   const floatingImages = [
-    { src: "/img/1_v3.png", pos: "top-[5%] left-[2%] xl:top-[8%] xl:left-[4%]", rotate: -5, delay: 0 },
-    { src: "/img/3_v3.png", pos: "top-[10%] right-[2%] xl:top-[12%] xl:right-[4%]", rotate: 8, delay: 0.5 },
+    { src: "/img/1_v3.png", pos: "top-[15%] left-[2%] xl:top-[18%] xl:left-[4%]", rotate: -5, delay: 0 },
+    { src: "/img/3_v3.png", pos: "top-[18%] right-[2%] xl:top-[22%] xl:right-[4%]", rotate: 8, delay: 0.5 },
     { src: "/img/4_v3.png", pos: "bottom-[15%] left-[3%] xl:bottom-[20%] xl:left-[6%]", rotate: 12, delay: 1 },
     { src: "/img/11_v3.png", pos: "bottom-[10%] right-[3%] xl:bottom-[15%] xl:right-[6%]", rotate: -10, delay: 1.5 },
   ];
