@@ -76,6 +76,8 @@ export default function WatchTheVibe() {
         return -(itemsWidth - window.innerWidth + (window.innerWidth * 0.05));
       };
 
+      const scrollAmount = items.scrollWidth - window.innerWidth;
+      
       gsap.to(items, {
         x: () => -(items.scrollWidth - window.innerWidth),
         ease: "none",
@@ -104,13 +106,15 @@ export default function WatchTheVibe() {
       });
     }, triggerRef);
 
-    const refreshTimer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 1000);
+    const refresh = () => ScrollTrigger.refresh();
+    window.addEventListener('load', refresh);
+    
+    const timers = [500, 1500, 3000].map(ms => setTimeout(refresh, ms));
 
     return () => {
       ctx.revert();
-      clearTimeout(refreshTimer);
+      window.removeEventListener('load', refresh);
+      timers.forEach(clearTimeout);
     };
   }, []);
 
@@ -148,7 +152,7 @@ export default function WatchTheVibe() {
         <div className="relative w-full z-10 flex items-center overflow-visible">
           <div 
             ref={containerRef}
-            className="flex flex-nowrap gap-6 md:gap-8 w-max items-stretch snap-x snap-mandatory reel-container"
+            className="flex flex-nowrap gap-6 md:gap-8 w-max items-stretch reel-container will-change-transform"
           >
             {/* Edge Spacers */}
             <div className="flex-none w-1 md:w-4" />
@@ -221,7 +225,7 @@ function ReelBox({ reel, index }: { reel: typeof reels[0], index: number }) {
 
   return (
     <div
-      className="relative flex-none w-[85vw] md:w-[clamp(260px,28vw,360px)] max-w-[90vw] aspect-[9/16] rounded-none overflow-hidden group cursor-pointer border border-white/5 snap-start h-full"
+      className="relative flex-none w-[85vw] md:w-[clamp(260px,28vw,360px)] max-w-[90vw] aspect-[9/16] rounded-none overflow-hidden group cursor-pointer border border-white/5 h-full will-change-transform"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
