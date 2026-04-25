@@ -226,7 +226,7 @@ function ReelBox({ reel, index }: { reel: typeof reels[0], index: number }) {
 
   return (
     <div
-      className="relative flex-none w-[85vw] md:w-[clamp(260px,28vw,360px)] aspect-[9/16] rounded-2xl overflow-hidden group cursor-pointer border border-white/5 bg-black"
+      className="relative flex-none w-[75vw] md:w-[clamp(220px,24vw,310px)] aspect-[9/16] rounded-2xl overflow-hidden group cursor-pointer border border-white/5 bg-black"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
