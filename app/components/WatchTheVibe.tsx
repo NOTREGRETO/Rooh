@@ -118,7 +118,7 @@ export default function WatchTheVibe() {
   return (
     <div 
       ref={triggerRef} 
-      className={`watch-section relative w-full overflow-hidden border-y border-black/5 transition-opacity duration-1000 ${mounted ? 'opacity-100' : 'opacity-0'} z-[5] mt-20 md:mt-32 pt-16 md:pt-24`}
+      className={`watch-section relative w-full overflow-hidden border-y border-black/5 transition-opacity duration-1000 ${mounted ? 'opacity-100' : 'opacity-0'} z-[5]`}
     >
       <section className="min-h-screen flex flex-col justify-center py-12 px-6 md:px-12 relative overflow-hidden safari-fix">
         <div className="w-full mb-12 relative z-20">
@@ -161,11 +161,8 @@ export default function WatchTheVibe() {
       </section>
 
       <style jsx>{`
-        .watch-section {
           position: relative;
           z-index: 5;
-          margin-top: 80px;
-          padding-top: 60px;
         }
         .text-outline {
           -webkit-text-stroke: 1px rgba(0, 0, 0, 0.4);

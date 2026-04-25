@@ -1,4 +1,4 @@
 #!/bin/bash
 git add .
-git commit -m "Integrate marquee into hero section and clean up separate component"
+git commit -m "Remove extra spacing between hero marquee and next section"
 git push origin main
