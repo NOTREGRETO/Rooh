@@ -192,7 +192,7 @@ function ReelBox({ reel, index }: { reel: typeof reels[0], index: number }) {
       <video
         ref={videoRef}
         src={reel.video}
-        className="absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 filter grayscale group-hover:grayscale-0"
+        className="absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
         autoPlay
         muted
         loop
