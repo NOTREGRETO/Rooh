@@ -52,11 +52,13 @@ const reels = [
   },
 ];
 
-export default function FeatureCards() {
+export default function WatchTheVibe() {
+  const [mounted, setMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setMounted(true);
     let ctx = gsap.context(() => {
       if (!containerRef.current || !triggerRef.current) return;
 
@@ -94,35 +96,40 @@ export default function FeatureCards() {
     };
   }, []);
 
+  if (!mounted) return <div className="h-screen bg-white" />;
+
   return (
     <div ref={triggerRef} className="bg-white w-full overflow-hidden border-y border-black/5">
-      <section className="h-screen flex flex-col justify-center py-0 px-4 md:px-8 relative overflow-hidden">
-        <div className="max-w-[1500px] mx-auto w-full mb-8 relative z-20">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-center lg:text-left"
-          >
-            <div className="flex items-center justify-center lg:justify-start gap-2 mb-6">
-              <span className="text-black font-black tracking-[0.4em] uppercase text-[10px] border-b border-black pb-1">MOTION SERIES</span>
-            </div>
-            <h2 className="text-4xl md:text-6xl lg:text-8xl font-black text-black mb-6 leading-[0.8] uppercase tracking-tighter">
-              BEYOND THE <br />
-              <span className="italic text-outline">SCROLL.</span>
-            </h2>
-            <p className="text-black/60 max-w-xl text-sm md:text-base font-medium">
-              High-impact visual narratives curated for the digital age. Minimal movement, maximum influence.
-            </p>
-          </motion.div>
+      <section className="h-screen flex flex-col justify-center py-0 px-6 md:px-12 relative overflow-hidden">
+        <div className="w-full mb-12 relative z-20">
+          <div className="flex flex-col md:flex-row items-end justify-between gap-8">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="max-w-3xl"
+            >
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-px bg-black/30" />
+                <span className="text-[10px] font-bold tracking-[0.5em] uppercase text-black/40">EXPERIENCE THE FLOW</span>
+              </div>
+              <h2 className="text-[50px] md:text-[100px] font-black leading-[0.85] uppercase tracking-tighter mb-8 text-black">
+                WATCH THE <br />
+                <span className="text-outline italic">VIBE.</span>
+              </h2>
+              <p className="text-xl md:text-2xl text-black/50 font-medium max-w-xl leading-relaxed">
+                Where high-contrast motion meets minimalist strategy. A curated sensory experience by Roohi.
+              </p>
+            </motion.div>
+          </div>
         </div>
 
         {/* Animation Content */}
         <div className="relative w-full z-10 flex items-center">
           <div 
             ref={containerRef}
-            className="flex flex-nowrap gap-6 md:gap-10 w-max px-[5vw] lg:px-[10vw] items-stretch"
+            className="flex flex-nowrap gap-8 md:gap-12 w-max px-[5vw] lg:px-[10vw] items-stretch"
           >
             {reels.map((reel, index) => (
               <ReelBox key={reel.id} reel={reel} index={index} />
@@ -132,6 +139,13 @@ export default function FeatureCards() {
 
         <div className="absolute inset-0 grid-bg opacity-[0.03] pointer-events-none" />
       </section>
+
+      <style jsx>{`
+        .text-outline {
+          -webkit-text-stroke: 1px rgba(0, 0, 0, 0.4);
+          color: transparent;
+        }
+      `}</style>
     </div>
   );
 }
@@ -166,7 +180,7 @@ function ReelBox({ reel, index }: { reel: typeof reels[0], index: number }) {
 
   return (
     <div
-      className="relative shrink-0 w-[80vw] md:w-[280px] lg:w-[320px] aspect-[9/16] rounded-none overflow-hidden group cursor-pointer shadow-2xl transition-all duration-700 border border-black/10"
+      className="relative shrink-0 w-[80vw] md:w-[320px] lg:w-[380px] aspect-[9/16] rounded-none overflow-hidden group cursor-pointer border border-white/5"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -179,14 +193,14 @@ function ReelBox({ reel, index }: { reel: typeof reels[0], index: number }) {
         loop
         playsInline
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
 
-      <div className="absolute bottom-10 left-8 right-8 z-20 transition-all duration-500 group-hover:-translate-y-2">
-        <h3 className="text-white text-xl font-black mb-2 tracking-tighter uppercase leading-none">{reel.title}</h3>
-        <p className="text-white/60 text-[10px] font-bold tracking-widest uppercase mb-6">{reel.caption}</p>
-        <div className="relative h-px w-full bg-white/20">
+      <div className="absolute bottom-12 left-10 right-10 z-20 transition-all duration-500 group-hover:-translate-y-2">
+        <h3 className="text-white text-2xl font-black mb-3 tracking-tighter uppercase leading-none italic">{reel.title}</h3>
+        <p className="text-white/40 text-[10px] font-bold tracking-[0.3em] uppercase mb-8">{reel.caption}</p>
+        <div className="relative h-px w-full bg-white/10">
           <div 
-            className="absolute top-0 left-0 h-full bg-white"
+            className="absolute top-0 left-0 h-full bg-white shadow-[0_0_15px_rgba(255,255,255,0.5)]"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -198,10 +212,10 @@ function ReelBox({ reel, index }: { reel: typeof reels[0], index: number }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none bg-black/20 backdrop-blur-[2px]"
+            className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none bg-black/40 backdrop-blur-[2px]"
           >
-            <div className="w-16 h-16 border border-white/40 rounded-full flex items-center justify-center">
-              <span className="text-white text-[10px] font-bold tracking-widest uppercase">PAUSE</span>
+            <div className="w-20 h-20 border border-white/20 rounded-full flex items-center justify-center">
+              <span className="text-white text-[10px] font-bold tracking-[0.4em] uppercase">PAUSE</span>
             </div>
           </motion.div>
         )}

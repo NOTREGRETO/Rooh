@@ -1,19 +1,19 @@
 export default function Marquee() {
   return (
-    <div className="bg-bg-light-pink py-4 border-y border-accent-pink/10 overflow-hidden whitespace-nowrap">
+    <div className="bg-black py-5 border-y border-white/10 overflow-hidden whitespace-nowrap">
       <div className="flex animate-marquee">
-        {[...Array(15)].map((_, i) => (
+        {[...Array(20)].map((_, i) => (
           <div key={i} className="flex items-center">
-            <div className="flex items-center px-10 gap-4">
-              <span className="text-[13px] font-black tracking-[0.2em] text-accent-pink uppercase">
-                CURATED BY FIRE
+            <div className="flex items-center px-12 gap-6">
+              <span className="text-[14px] font-black tracking-[0.3em] text-white uppercase">
+                ROOHI STUDIO
               </span>
-              <span className="text-accent-pink/30 text-xs">✦</span>
-              <span className="text-[11px] font-bold tracking-[0.1em] text-accent-pink/60 uppercase">
-                Growth • Clarity • Aesthetics
+              <span className="text-white/20 text-xs">✦</span>
+              <span className="text-[12px] font-bold tracking-[0.2em] text-white/40 uppercase italic font-serif">
+                Minimalism in Motion
               </span>
             </div>
-            <span className="text-sm text-accent-pink/30 px-2">✦</span>
+            <span className="text-sm text-white/20 px-4">✦</span>
           </div>
         ))}
       </div>

@@ -1,22 +1,15 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import Marquee from "./components/Marquee";
-import FeatureCards from "./components/FeatureCards";
-import GallerySection from "./components/GallerySection";
-import Members from "./components/Members";
-
-import Image from "next/image";
+import WatchTheVibe from "./components/WatchTheVibe";
+import Footer from "./components/Footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-bg-white">
       <Navbar />
       <Hero />
-      <Marquee />
-      <FeatureCards />
-      <GallerySection />
-      <Members />
-
+      <WatchTheVibe />
+      <Footer />
     </main>
   );
 }

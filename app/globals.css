@@ -4,13 +4,13 @@
   --font-sans: var(--font-outfit);
   --font-serif: var(--font-dm-serif);
   
-  --color-soft-pink: #FFCDD2;
-  --color-accent-pink: #CC0000;
-  --color-accent-pink-hover: #DD2222;
   --color-bg-white: #FFFFFF;
-  --color-bg-light-pink: #FFF5F5;
-  --color-text-dark: #1A1A1A;
-  --color-text-body: #555555;
+  --color-bg-black: #000000;
+  --color-text-dark: #000000;
+  --color-text-body: #1A1A1A;
+  --color-border-main: #E5E5E5;
+  --color-accent: #000000;
+  
   @keyframes float {
     0%, 100% { transform: translateY(0) rotate(0deg); }
     50% { transform: translateY(-15px) rotate(5deg); }
@@ -42,8 +42,8 @@
 
   .grid-bg {
     background-image: 
-      linear-gradient(var(--color-bg-light-pink) 1.5px, transparent 1.5px),
-      linear-gradient(90deg, var(--color-bg-light-pink) 1.5px, transparent 1.5px);
+      linear-gradient(#F5F5F5 1px, transparent 1px),
+      linear-gradient(90deg, #F5F5F5 1px, transparent 1px);
     background-size: 40px 40px;
   }
 
@@ -63,14 +63,20 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  .text-outline {
+    -webkit-text-stroke: 1px black;
+    color: transparent;
+  }
 }
 
 :root {
   --background: #FFFFFF;
-  --foreground: #1A1A1A;
+  --foreground: #000000;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: var(--font-sans);
 }
