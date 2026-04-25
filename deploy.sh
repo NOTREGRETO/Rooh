@@ -1,4 +1,4 @@
 #!/bin/bash
 git add .
-git commit -m "Implement universal scroll fix: centered padding, 9:16 aspect ratio, and object-contain"
+git commit -m "Finalize reel layout: remove parent overflow-hidden and implement snap-center"
 git push origin main

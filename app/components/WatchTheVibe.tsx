@@ -122,9 +122,9 @@ export default function WatchTheVibe() {
   return (
     <div 
       ref={triggerRef} 
-      className={`watch-section relative w-full overflow-hidden border-y border-black/5 transition-opacity duration-1000 ${mounted ? 'opacity-100' : 'opacity-0'} z-[5]`}
+      className={`watch-section relative w-full border-y border-black/5 transition-opacity duration-1000 ${mounted ? 'opacity-100' : 'opacity-0'} z-[5] overflow-visible`}
     >
-      <section className="min-h-screen flex flex-col justify-center py-12 px-6 md:px-12 relative overflow-hidden safari-fix">
+      <section className="min-h-screen flex flex-col justify-center py-12 px-6 md:px-12 relative overflow-visible safari-fix">
         <div className="w-full mb-12 relative z-20">
           <div className="flex flex-col md:flex-row items-end justify-between gap-8">
             <motion.div 
@@ -152,7 +152,7 @@ export default function WatchTheVibe() {
         <div className="relative w-full z-10 flex items-center overflow-visible">
           <div 
             ref={containerRef}
-            className="flex flex-nowrap gap-6 md:gap-8 w-max items-stretch reel-container will-change-transform"
+            className="flex flex-nowrap gap-6 md:gap-8 w-max items-stretch reel-container will-change-transform snap-x snap-mandatory"
           >
             {/* Edge Spacers */}
             <div className="flex-none w-1 md:w-5" />
@@ -177,6 +177,7 @@ export default function WatchTheVibe() {
           padding-left: max(20px, calc((100vw - 1200px) / 2));
           padding-right: max(20px, calc((100vw - 1200px) / 2));
           scroll-behavior: smooth;
+          scroll-snap-type: x mandatory;
         }
         .text-outline {
           -webkit-text-stroke: 1px rgba(0, 0, 0, 0.4);
@@ -226,7 +227,7 @@ function ReelBox({ reel, index }: { reel: typeof reels[0], index: number }) {
 
   return (
     <div
-      className="relative flex-none w-[85vw] md:w-[clamp(260px,28vw,360px)] aspect-[9/16] rounded-2xl overflow-hidden group cursor-pointer border border-white/5 bg-black"
+      className="relative flex-none w-[85vw] md:w-[clamp(260px,28vw,360px)] aspect-[9/16] rounded-2xl overflow-hidden group cursor-pointer border border-white/5 bg-black snap-center"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
