@@ -3,6 +3,10 @@
 @theme {
   --font-sans: var(--font-outfit);
   --font-serif: var(--font-dm-serif);
+  --font-adabelle: var(--font-adabelle);
+  --font-chalkboard: var(--font-chalkboard);
+  --font-kiddos: var(--font-kiddos);
+  --font-little-bean: var(--font-little-bean);
   
   --color-bg-white: #FFFFFF;
   --color-bg-black: #000000;

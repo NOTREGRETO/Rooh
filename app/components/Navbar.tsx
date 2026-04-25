@@ -7,7 +7,15 @@ export default function Navbar() {
       <div className="w-full px-6 md:px-12 h-20 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center hover:opacity-70 transition-opacity">
-          <span className="text-2xl font-black tracking-tighter uppercase">ROOHI</span>
+          <div className="relative h-16 w-48">
+            <Image 
+              src="/img/logo_clean.png" 
+              alt="Roohi Logo" 
+              fill 
+              className="object-contain mix-blend-multiply"
+              priority
+            />
+          </div>
         </Link>
 
         {/* Links */}
@@ -16,7 +24,7 @@ export default function Navbar() {
             <Link
               key={item}
               href={`#${item.toLowerCase()}`}
-              className="text-[11px] font-bold tracking-[0.2em] text-text-dark hover:opacity-50 transition-opacity"
+              className="text-[14px] font-chalkboard tracking-[0.1em] text-text-dark hover:opacity-50 transition-opacity"
             >
               {item}
             </Link>
@@ -27,7 +35,7 @@ export default function Navbar() {
         <div className="flex items-center gap-8">
           <Link 
             href="#contact" 
-            className="text-[11px] font-bold tracking-[0.2em] hidden sm:block hover:opacity-50 transition-opacity"
+            className="text-[14px] font-chalkboard tracking-[0.1em] hidden sm:block hover:opacity-50 transition-opacity"
           >
             LET'S TALK
           </Link>

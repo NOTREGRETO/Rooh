@@ -34,18 +34,24 @@ const reels = [
   },
   {
     id: 5,
+    video: "/videos/desk.mp4",
+    title: "Desk Essentials",
+    caption: "What keeps a manager functioning ☕",
+  },
+  {
+    id: 6,
     video: "/videos/package.mp4",
     title: "Service Packages",
     caption: "The perfect balance of creativity. 🎨",
   },
   {
-    id: 6,
+    id: 7,
     video: "/videos/creativity.mp4",
     title: "Creativity & Chaos",
     caption: "What's on my mind lately... 🧠",
   },
   {
-    id: 7,
+    id: 8,
     video: "/videos/just-post.mp4",
     title: "Reality Check",
     caption: "If only they knew the hustle! 😭",
@@ -67,21 +73,34 @@ export default function FeatureCards() {
         return -(itemsWidth - window.innerWidth + (window.innerWidth * 0.05));
       };
 
-      if (window.innerWidth >= 1024) {
-        gsap.to(items, {
-          x: getScrollAmount,
-          ease: "none",
-          scrollTrigger: {
-            trigger: triggerRef.current,
-            start: "top top",
-            end: () => `+=${items.scrollWidth - window.innerWidth}`,
-            pin: true,
-            scrub: 1,
-            invalidateOnRefresh: true,
-            anticipatePin: 1,
-          },
-        });
-      }
+      gsap.to(items, {
+        x: () => getScrollAmount(),
+        ease: "none",
+        scrollTrigger: {
+          trigger: triggerRef.current,
+          start: "top top",
+          end: () => `+=${items.scrollWidth}`,
+          pin: true,
+          scrub: 1.5,
+          invalidateOnRefresh: true,
+          anticipatePin: 1,
+          fastScrollEnd: true,
+          preventOverlaps: true,
+        },
+      });
+ 
+      // Staggered entrance for cards
+      gsap.from(items.children, {
+        y: 60,
+        opacity: 0,
+        duration: 1.2,
+        stagger: 0.1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: triggerRef.current,
+          start: "top 80%",
+        }
+      });
     }, triggerRef);
 
     const refreshTimer = setTimeout(() => {
@@ -108,11 +127,11 @@ export default function FeatureCards() {
             <div className="flex items-center justify-center lg:justify-start gap-2 mb-6">
               <span className="text-black font-black tracking-[0.4em] uppercase text-[10px] border-b border-black pb-1">MOTION SERIES</span>
             </div>
-            <h2 className="text-4xl md:text-6xl lg:text-8xl font-black text-black mb-6 leading-[0.8] uppercase tracking-tighter">
+            <h2 className="text-4xl md:text-6xl lg:text-8xl font-little-bean text-black mb-6 leading-[0.8] uppercase tracking-tighter">
               BEYOND THE <br />
               <span className="italic text-outline">SCROLL.</span>
             </h2>
-            <p className="text-black/60 max-w-xl text-sm md:text-base font-medium">
+            <p className="text-black/60 max-w-xl text-xl md:text-2xl font-adabelle leading-relaxed">
               High-impact visual narratives curated for the digital age. Minimal movement, maximum influence.
             </p>
           </motion.div>
@@ -182,8 +201,8 @@ function ReelBox({ reel, index }: { reel: typeof reels[0], index: number }) {
       <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
 
       <div className="absolute bottom-10 left-8 right-8 z-20 transition-all duration-500 group-hover:-translate-y-2">
-        <h3 className="text-white text-xl font-black mb-2 tracking-tighter uppercase leading-none">{reel.title}</h3>
-        <p className="text-white/60 text-[10px] font-bold tracking-widest uppercase mb-6">{reel.caption}</p>
+        <h3 className="text-white text-2xl font-chalkboard mb-2 tracking-tight uppercase leading-none">{reel.title}</h3>
+        <p className="text-white/60 text-[14px] font-adabelle tracking-wide uppercase mb-6">{reel.caption}</p>
         <div className="relative h-px w-full bg-white/20">
           <div 
             className="absolute top-0 left-0 h-full bg-white"

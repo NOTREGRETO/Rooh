@@ -34,18 +34,24 @@ const reels = [
   },
   {
     id: 5,
+    video: "/videos/desk.mp4",
+    title: "Desk Essentials",
+    caption: "What keeps a manager functioning ☕",
+  },
+  {
+    id: 6,
     video: "/videos/package.mp4",
     title: "Service Packages",
     caption: "The perfect balance of creativity. 🎨",
   },
   {
-    id: 6,
+    id: 7,
     video: "/videos/creativity.mp4",
     title: "Creativity & Chaos",
     caption: "What's on my mind lately... 🧠",
   },
   {
-    id: 7,
+    id: 8,
     video: "/videos/just-post.mp4",
     title: "Reality Check",
     caption: "If only they knew the hustle! 😭",
@@ -59,6 +65,7 @@ export default function WatchTheVibe() {
 
   useEffect(() => {
     setMounted(true);
+ 
     let ctx = gsap.context(() => {
       if (!containerRef.current || !triggerRef.current) return;
 
@@ -69,21 +76,32 @@ export default function WatchTheVibe() {
         return -(itemsWidth - window.innerWidth + (window.innerWidth * 0.05));
       };
 
-      if (window.innerWidth >= 1024) {
-        gsap.to(items, {
-          x: getScrollAmount,
-          ease: "none",
-          scrollTrigger: {
-            trigger: triggerRef.current,
-            start: "top top",
-            end: () => `+=${items.scrollWidth - window.innerWidth}`,
-            pin: true,
-            scrub: 1,
-            invalidateOnRefresh: true,
-            anticipatePin: 1,
-          },
-        });
-      }
+      gsap.to(items, {
+        x: () => -(items.scrollWidth - window.innerWidth + (window.innerWidth * 0.1)),
+        ease: "none",
+        scrollTrigger: {
+          trigger: triggerRef.current,
+          start: "top top",
+          end: () => `+=${items.scrollWidth}`, 
+          pin: true,
+          scrub: 2,
+          invalidateOnRefresh: true,
+          anticipatePin: 1,
+        },
+      });
+ 
+      // Staggered entrance for cards
+      gsap.from(items.children, {
+        y: 100,
+        opacity: 0,
+        duration: 1.5,
+        stagger: 0.15,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: triggerRef.current,
+          start: "top 85%",
+        }
+      });
     }, triggerRef);
 
     const refreshTimer = setTimeout(() => {
@@ -96,10 +114,12 @@ export default function WatchTheVibe() {
     };
   }, []);
 
-  if (!mounted) return <div className="h-screen bg-white" />;
 
   return (
-    <div ref={triggerRef} className="bg-white w-full overflow-hidden border-y border-black/5">
+    <div 
+      ref={triggerRef} 
+      className={`bg-white w-full overflow-hidden border-y border-black/5 transition-opacity duration-1000 ${mounted ? 'opacity-100' : 'opacity-0'}`}
+    >
       <section className="h-screen flex flex-col justify-center py-0 px-6 md:px-12 relative overflow-hidden">
         <div className="w-full mb-12 relative z-20">
           <div className="flex flex-col md:flex-row items-end justify-between gap-8">
@@ -112,13 +132,13 @@ export default function WatchTheVibe() {
             >
               <div className="flex items-center gap-4 mb-8">
                 <div className="w-12 h-px bg-black/30" />
-                <span className="text-[10px] font-bold tracking-[0.5em] uppercase text-black/40">EXPERIENCE THE FLOW</span>
+                <span className="text-[14px] font-chalkboard tracking-[0.2em] uppercase text-black/40">EXPERIENCE THE FLOW</span>
               </div>
-              <h2 className="text-[50px] md:text-[100px] font-black leading-[0.85] uppercase tracking-tighter mb-8 text-black">
+              <h2 className="text-[50px] md:text-[100px] font-little-bean leading-[0.85] uppercase tracking-tighter mb-8 text-black">
                 WATCH THE <br />
                 <span className="text-outline italic">VIBE.</span>
               </h2>
-              <p className="text-xl md:text-2xl text-black/50 font-medium max-w-xl leading-relaxed">
+              <p className="text-2xl md:text-3xl text-black/60 font-adabelle leading-relaxed max-w-xl">
                 Where high-contrast motion meets minimalist strategy. A curated sensory experience by Roohi.
               </p>
             </motion.div>
@@ -175,7 +195,10 @@ function ReelBox({ reel, index }: { reel: typeof reels[0], index: number }) {
 
   const handleMouseLeave = () => {
     setIsHovered(false);
-    videoRef.current?.play();
+    const playPromise = videoRef.current?.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {});
+    }
   };
 
   return (
@@ -196,8 +219,8 @@ function ReelBox({ reel, index }: { reel: typeof reels[0], index: number }) {
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
 
       <div className="absolute bottom-12 left-10 right-10 z-20 transition-all duration-500 group-hover:-translate-y-2">
-        <h3 className="text-white text-2xl font-black mb-3 tracking-tighter uppercase leading-none italic">{reel.title}</h3>
-        <p className="text-white/40 text-[10px] font-bold tracking-[0.3em] uppercase mb-8">{reel.caption}</p>
+        <h3 className="text-white text-3xl font-chalkboard mb-3 tracking-tight uppercase leading-none italic">{reel.title}</h3>
+        <p className="text-white/60 text-[14px] font-adabelle tracking-wide uppercase mb-8">{reel.caption}</p>
         <div className="relative h-px w-full bg-white/10">
           <div 
             className="absolute top-0 left-0 h-full bg-white shadow-[0_0_15px_rgba(255,255,255,0.5)]"

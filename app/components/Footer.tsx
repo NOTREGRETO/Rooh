@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
@@ -10,19 +11,26 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-16 md:gap-8 mb-24">
           {/* Logo & Intro */}
           <div className="md:col-span-2">
-            <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase mb-8">ROOHI</h2>
-            <p className="text-black/60 max-w-sm font-medium leading-relaxed text-lg">
+            <div className="relative h-24 w-60 mb-12">
+              <Image 
+                src="/img/logo_clean.png" 
+                alt="Roohi Logo" 
+                fill 
+                className="object-contain mix-blend-multiply"
+              />
+            </div>
+            <p className="text-black/60 max-w-sm font-adabelle leading-relaxed text-2xl">
               A design-forward laboratory for digital aesthetics and curated brand experiences. Strictly minimal. Strictly high-contrast.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-[10px] font-bold tracking-[0.3em] uppercase mb-10 text-black/30">NAVIGATION</h3>
+            <h3 className="text-[12px] font-chalkboard tracking-[0.2em] uppercase mb-10 text-black/30">NAVIGATION</h3>
             <ul className="space-y-5">
               {["ABOUT", "WORKS", "BLOG", "CONTACT"].map((link) => (
                 <li key={link}>
-                  <Link href={`#${link.toLowerCase()}`} className="text-[11px] font-bold tracking-[0.2em] hover:opacity-50 transition-opacity uppercase">
+                  <Link href={`#${link.toLowerCase()}`} className="text-[14px] font-chalkboard tracking-[0.1em] hover:opacity-50 transition-opacity uppercase">
                     {link}
                   </Link>
                 </li>
@@ -46,12 +54,12 @@ export default function Footer() {
         </div>
 
         <div className="pt-12 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-8">
-          <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-black/20 order-2 md:order-1">
+          <p className="text-[14px] font-chalkboard tracking-[0.1em] uppercase text-black/20 order-2 md:order-1">
             © {new Date().getFullYear()} ROOHI STUDIO. ALL RIGHTS RESERVED.
           </p>
           <div className="flex gap-10 order-1 md:order-2">
             {["INSTAGRAM", "TWITTER", "LINKEDIN"].map((social) => (
-              <Link key={social} href="#" className="text-[10px] font-bold tracking-[0.2em] uppercase hover:opacity-50 transition-opacity">
+              <Link key={social} href="#" className="text-[14px] font-chalkboard tracking-[0.1em] uppercase hover:opacity-50 transition-opacity">
                 {social}
               </Link>
             ))}
