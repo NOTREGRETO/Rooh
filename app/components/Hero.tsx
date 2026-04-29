@@ -53,78 +53,84 @@ export default function Hero() {
           speed={1}
         />
       </div>
+      
+
 
       <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center justify-center text-center transform translate-y-10 md:translate-y-14">
         
         {/* Main Title Wrapper */}
         <div className="relative inline-block mb-16 md:mb-24 mt-12 md:mt-0">
           
-          <h1 className="flex flex-col items-center text-[clamp(2.8rem,6.5vw,8.5rem)] font-black text-[#1a1a1a] leading-[1.15] tracking-[-0.04em]">
+          <h1 className="flex flex-col items-center text-[clamp(2.8rem,6.5vw,8.5rem)] font-black text-[#1a1a1a] leading-[1.15] tracking-[-0.07em]">
             
             <div className="relative whitespace-nowrap">
 
               
               {/* Element 2: Rectangle above 'Manage' */}
-              <div className="absolute md:top-[-65px] top-[-45px] left-[15%] md:left-[18%]">
-                <div className="border-[1.5px] border-[#101010] rounded-full bg-emerald-400 px-6 py-2.5 md:px-9 md:py-3.5 flex items-center justify-center shadow-md transform rotate-[-2deg]">
-                  <span className="text-[13px] md:text-[16px] font-black tracking-widest text-emerald-950 uppercase">Strategy</span>
+              <div className="absolute md:top-[-65px] top-[-45px] left-[20%] md:left-[24%]">
+                <div className="border-[1.5px] border-[#101010] rounded-full bg-emerald-400 px-5 py-2 md:px-7 md:py-3 flex items-center justify-center shadow-md transform rotate-[-2deg]">
+                  <span className="text-[11px] md:text-[14px] font-black tracking-widest text-emerald-950 uppercase">Strategy</span>
                 </div>
               </div>
               
               {/* Element 3: Rectangle above 'Your' */}
-              <div className="absolute md:top-[-65px] top-[-45px] right-[15%] md:right-[18%]">
-                <div className="border-[1.5px] border-[#101010] rounded-full bg-fuchsia-400 px-6 py-2.5 md:px-9 md:py-3.5 flex items-center justify-center shadow-md transform rotate-[1deg]">
-                  <span className="text-[13px] md:text-[16px] font-black tracking-widest text-fuchsia-950 uppercase">Growth</span>
+              <div className="absolute md:top-[-65px] top-[-45px] right-[10%] md:right-[15%]">
+                <div className="border-[1.5px] border-[#101010] rounded-full bg-fuchsia-400 px-5 py-2 md:px-7 md:py-3 flex items-center justify-center shadow-md transform rotate-[1deg]">
+                  <span className="text-[11px] md:text-[14px] font-black tracking-widest text-fuchsia-950 uppercase">Growth</span>
                 </div>
               </div>
 
 
 
-              I Manage Your
+              {/* Element 5: Magenta Pointer (Looking at I MANAGE YOUR) */}
+              <div className="absolute top-[10px] right-[-55px] md:right-[-85px] w-10 h-10 md:w-12 md:h-12 transform rotate-[-45deg]">
+                <svg viewBox="0 0 28 28" fill="none" className="drop-shadow-[0_8px_16px_rgba(217,70,239,0.35)]">
+                  <path d="M 4 4 L 24 10 L 14 14 L 10 24 Z" fill="url(#grad_magenta)" stroke="url(#grad_magenta)" strokeWidth="3" strokeLinejoin="round" />
+                  <defs>
+                    <linearGradient id="grad_magenta" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#d946ef" />
+                      <stop offset="100%" stopColor="#06b6d4" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+
+              I MANAGE YOUR
             </div>
 
             <div className="relative mt-2 md:mt-4 whitespace-nowrap">
               {/* Element 4: Rectangle below 'Brand' */}
-              <div className="absolute md:bottom-[-65px] bottom-[-45px] left-[10%] md:left-[15%]">
-                <div className="border-[1.5px] border-[#101010] rounded-full bg-cyan-400 px-6 py-2.5 md:px-9 md:py-3.5 flex items-center justify-center shadow-md transform rotate-[-1deg]">
-                  <span className="text-[13px] md:text-[16px] font-black tracking-widest text-cyan-950 uppercase">Analytics</span>
+              <div className="absolute md:bottom-[-65px] bottom-[-45px] left-[8%] md:left-[12%]">
+                <div className="border-[1.5px] border-[#101010] rounded-full bg-cyan-400 px-5 py-2 md:px-7 md:py-3 flex items-center justify-center shadow-md transform rotate-[-1deg]">
+                  <span className="text-[11px] md:text-[14px] font-black tracking-widest text-cyan-950 uppercase">Analytics</span>
                 </div>
               </div>
               
-              {/* Element 5: Cyan/Green Pointer (Bottom Left) */}
-              <div className="absolute bottom-[-40%] md:bottom-[-45%] left-[33%] md:left-[36%] w-10 h-10 md:w-12 md:h-12 transform rotate-[15deg]">
-                <svg viewBox="0 0 28 28" fill="none" className="drop-shadow-[0_8px_16px_rgba(34,211,238,0.3)]">
-                  <path d="M 4 4 L 24 10 L 14 14 L 10 24 Z" fill="url(#grad_green)" stroke="url(#grad_green)" strokeWidth="3" strokeLinejoin="round" />
-                  <defs>
-                    <linearGradient id="grad_green" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#22d3ee" />
-                      <stop offset="100%" stopColor="#34d399" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-              </div>
+
               
               {/* Element 6: Rectangle below 'Media' */}
-              <div className="absolute md:bottom-[-65px] bottom-[-45px] right-[10%] md:right-[15%]">
-                <div className="border-[1.5px] border-[#101010] rounded-full bg-yellow-400 px-6 py-2.5 md:px-9 md:py-3.5 flex items-center justify-center shadow-md transform rotate-[2deg]">
-                  <span className="text-[13px] md:text-[16px] font-black tracking-widest text-yellow-950 uppercase">Content</span>
+              <div className="absolute md:bottom-[-65px] bottom-[-45px] right-[8%] md:right-[12%]">
+                <div className="border-[1.5px] border-[#101010] rounded-full bg-yellow-400 px-5 py-2 md:px-7 md:py-3 flex items-center justify-center shadow-md transform rotate-[2deg]">
+                  <span className="text-[11px] md:text-[14px] font-black tracking-widest text-yellow-950 uppercase">Content</span>
                 </div>
               </div>
 
-              {/* Element 7: Cyan/Blue Pointer (Right side) */}
-              <div className="absolute top-[-10%] right-[-18%] md:right-[-15%] w-10 h-10 md:w-12 md:h-12 transform rotate-[-25deg]">
-                <svg viewBox="0 0 28 28" fill="none" className="drop-shadow-[0_8px_16px_rgba(37,99,235,0.3)]">
-                  <path d="M 4 4 L 24 10 L 14 14 L 10 24 Z" fill="url(#grad_blue)" stroke="url(#grad_blue)" strokeWidth="3" strokeLinejoin="round" />
+
+
+              {/* Element 7: Orange Pointer (Looking at BRAND'S SOCIAL MEDIA) */}
+              <div className="absolute top-[10px] left-[-55px] md:left-[-85px] w-10 h-10 md:w-12 md:h-12 transform rotate-[135deg]">
+                <svg viewBox="0 0 28 28" fill="none" className="drop-shadow-[0_8px_16px_rgba(249,115,22,0.35)]">
+                  <path d="M 4 4 L 24 10 L 14 14 L 10 24 Z" fill="url(#grad_orange)" stroke="url(#grad_orange)" strokeWidth="3" strokeLinejoin="round" />
                   <defs>
-                    <linearGradient id="grad_blue" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#22d3ee" />
-                      <stop offset="100%" stopColor="#2563eb" />
+                    <linearGradient id="grad_orange" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#f97316" />
+                      <stop offset="100%" stopColor="#e11d48" />
                     </linearGradient>
                   </defs>
                 </svg>
               </div>
 
-              Brand Social Media
+              BRAND&apos;S SOCIAL MEDIA
             </div>
           </h1>
 
