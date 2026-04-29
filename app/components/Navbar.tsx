@@ -19,25 +19,31 @@ export default function Navbar() {
         </Link>
 
         {/* Links */}
-        <nav className="hidden md:flex items-center gap-12">
-          {["ABOUT", "BLOG", "WORKS"].map((item) => (
+        <nav className="hidden lg:flex items-center gap-8">
+          {[
+            { name: "Home", href: "/" },
+            { name: "About", href: "#about" },
+            { name: "Services", href: "#services" },
+            { name: "Blog", href: "#blog" },
+            { name: "Portfolio / Case Study's", href: "#portfolio" },
+          ].map((item) => (
             <Link
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              className="text-[14px] font-chalkboard tracking-[0.1em] text-text-dark hover:opacity-50 transition-opacity"
+              key={item.name}
+              href={item.href}
+              className="text-[15px] font-[family-name:var(--font-inter)] font-medium text-[#1a1a1a] hover:text-[#555555] transition-colors"
             >
-              {item}
+              {item.name}
             </Link>
           ))}
         </nav>
 
         {/* CTA */}
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-6">
           <Link 
             href="#contact" 
-            className="text-[14px] font-chalkboard tracking-[0.1em] hidden sm:block hover:opacity-50 transition-opacity"
+            className="px-6 py-2.5 rounded-full bg-[#1a1a1a] text-white text-[14px] font-[family-name:var(--font-inter)] font-semibold hidden sm:block hover:bg-[#333333] hover:shadow-md transition-all"
           >
-            LET'S TALK
+            Let's Talk
           </Link>
           <button className="p-1">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -1,126 +1,148 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useEffect, useState } from "react";
+import Aurora from "./Aurora";
 
 export default function Hero() {
   const [mounted, setMounted] = useState(false);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const floatingImages = [
-    { src: "/img/1_v3.png", pos: "top-[15%] left-[2%] xl:top-[18%] xl:left-[4%]", rotate: -5, delay: 0 },
-    { src: "/img/3_v3.png", pos: "top-[18%] right-[2%] xl:top-[22%] xl:right-[4%]", rotate: 8, delay: 0.5 },
-    { src: "/img/4_v3.png", pos: "bottom-[15%] left-[3%] xl:bottom-[20%] xl:left-[6%]", rotate: 12, delay: 1 },
-    { src: "/img/11_v3.png", pos: "bottom-[10%] right-[3%] xl:bottom-[15%] xl:right-[6%]", rotate: -10, delay: 1.5 },
-  ];
+  const springConfig = { damping: 30, stiffness: 100 };
+  const smoothMouseX = useSpring(mouseX, springConfig);
+  const smoothMouseY = useSpring(mouseY, springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const { clientX, clientY } = e;
+    const { innerWidth, innerHeight } = window;
+    const x = (clientX / innerWidth) * 2 - 1;
+    const y = (clientY / innerHeight) * 2 - 1;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
+  // Parallax layers
+  const x1 = useTransform(smoothMouseX, [-1, 1], [-20, 20]);
+  const y1 = useTransform(smoothMouseY, [-1, 1], [-20, 20]);
+  
+  const x2 = useTransform(smoothMouseX, [-1, 1], [35, -35]);
+  const y2 = useTransform(smoothMouseY, [-1, 1], [35, -35]);
+
+  const x3 = useTransform(smoothMouseX, [-1, 1], [-45, 45]);
+  const y3 = useTransform(smoothMouseY, [-1, 1], [45, -45]);
+
+
+  if (!mounted) return <section className="w-full min-h-screen bg-[#fdfdfd]" />;
 
   return (
-    <section className="relative w-full min-h-screen flex flex-col justify-between bg-white grid-bg pt-20 safari-fix">
-      {/* 1. Floating Images Container - z-index: 1 */}
-      <div className="absolute inset-0 pointer-events-none z-[1]">
-        <div className="relative w-full h-full max-w-[1800px] mx-auto">
-          {floatingImages.map((img, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ 
-                opacity: 1, 
-                scale: 1,
-                y: [0, -20, 0],
-                rotate: [img.rotate, img.rotate + 2, img.rotate]
-              }}
-              transition={{ 
-                opacity: { duration: 1, delay: img.delay },
-                scale: { duration: 1, delay: img.delay },
-                y: { duration: 6, repeat: Infinity, ease: "easeInOut", delay: img.delay },
-                rotate: { duration: 8, repeat: Infinity, ease: "easeInOut", delay: img.delay }
-              }}
-              className={`absolute ${img.pos} hidden md:block`}
-            >
-              <div className="relative w-[clamp(120px,15vw,280px)] h-[clamp(120px,15vw,280px)] group hover:scale-110 transition-transform duration-700 pointer-events-auto cursor-pointer">
-                <Image 
-                  src={img.src} 
-                  alt={`Floating asset ${index + 1}`} 
-                  fill
-                  className="object-contain filter grayscale brightness-[0.95] drop-shadow-[0_15px_35px_rgba(0,0,0,0.15)] mix-blend-multiply"
-                  priority
-                />
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      {/* 2. Main Content Area - Center - z-index: 10 */}
-      <div className="flex-1 flex items-center justify-center w-full">
-        <div className="hero-content relative z-10 text-center px-4 sm:px-6 w-full max-w-[90vw] md:max-w-4xl lg:max-w-6xl mx-auto py-12 md:py-20">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="flex flex-col items-center gap-2 md:gap-4"
-          >
-            <div className="w-full">
-              {/* Line 1: Branded Logo Image */}
-              <div className="relative h-[clamp(10rem,25vw,25rem)] w-full max-w-[95%] mx-auto mb-2 md:mb-6">
-                <Image 
-                  src="/img/curated_by_fire_clean.png" 
-                  alt="Curated By Fire" 
-                  fill 
-                  className="object-contain mix-blend-multiply select-none"
-                  priority
-                />
-              </div>
-
-              {/* Line 2: Elegant Serif Italic */}
-              <h1 className="overflow-visible">
-                <span className="text-[clamp(2.5rem,8vw,12rem)] font-adabelle font-medium tracking-tighter leading-[0.85] text-black uppercase italic block select-none">
-                  WORKFOLIO
-                </span>
-              </h1>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* 3. Marquee Strip - Bottom - z-index: 5 */}
-      {mounted && (
-        <div className="relative w-full bg-black py-4 md:py-6 border-t border-white/10 overflow-hidden whitespace-nowrap z-[5]">
-          <div className="flex animate-marquee">
-            {[...Array(20)].map((_, i) => (
-              <div key={i} className="flex items-center">
-                <div className="flex items-center px-8 md:px-12 gap-4 md:gap-6">
-                  <span className="text-[14px] md:text-[20px] font-kiddos tracking-[0.1em] text-white uppercase">
-                    ROOHI STUDIO
-                  </span>
-                  <span className="text-white/20 text-xs">✦</span>
-                  <span className="text-[12px] md:text-[16px] font-adabelle tracking-[0.05em] text-white/40 uppercase italic">
-                    Minimalism in Motion
-                  </span>
-                </div>
-                <span className="text-sm text-white/20 px-4">✦</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Decorative center grid lines - z-index: 0 */}
+    <section 
+      onMouseMove={handleMouseMove}
+      className="relative w-full min-h-screen bg-white flex flex-col items-center justify-center overflow-hidden py-20 px-4 md:px-8 font-[family-name:var(--font-inter)]"
+    >
+      {/* Aurora Background */}
       <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="absolute top-1/2 left-0 w-full h-px bg-black/[0.04]" />
-        <div className="absolute left-1/2 top-0 w-px h-full bg-black/[0.04]" />
+        <Aurora
+          colorStops={["#7cff67","#B497CF","#5227FF"]}
+          blend={0.5}
+          amplitude={1.0}
+          speed={1}
+        />
       </div>
 
-      <style jsx>{`
-        .hero-content {
-          position: relative;
-          z-index: 10;
-        }
-      `}</style>
+      <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center justify-center text-center transform translate-y-10 md:translate-y-14">
+        
+        {/* Main Title Wrapper */}
+        <div className="relative inline-block mb-16 md:mb-24 mt-12 md:mt-0">
+          
+          <h1 className="flex flex-col items-center text-[clamp(2.8rem,6.5vw,8.5rem)] font-black text-[#1a1a1a] leading-[1.15] tracking-[-0.04em]">
+            
+            <div className="relative whitespace-nowrap">
+
+              
+              {/* Element 2: Rectangle above 'Manage' */}
+              <div className="absolute md:top-[-65px] top-[-45px] left-[15%] md:left-[18%]">
+                <div className="border-[1.5px] border-[#101010] rounded-full bg-emerald-400 px-6 py-2.5 md:px-9 md:py-3.5 flex items-center justify-center shadow-md transform rotate-[-2deg]">
+                  <span className="text-[13px] md:text-[16px] font-black tracking-widest text-emerald-950 uppercase">Strategy</span>
+                </div>
+              </div>
+              
+              {/* Element 3: Rectangle above 'Your' */}
+              <div className="absolute md:top-[-65px] top-[-45px] right-[15%] md:right-[18%]">
+                <div className="border-[1.5px] border-[#101010] rounded-full bg-fuchsia-400 px-6 py-2.5 md:px-9 md:py-3.5 flex items-center justify-center shadow-md transform rotate-[1deg]">
+                  <span className="text-[13px] md:text-[16px] font-black tracking-widest text-fuchsia-950 uppercase">Growth</span>
+                </div>
+              </div>
+
+
+
+              I Manage Your
+            </div>
+
+            <div className="relative mt-2 md:mt-4 whitespace-nowrap">
+              {/* Element 4: Rectangle below 'Brand' */}
+              <div className="absolute md:bottom-[-65px] bottom-[-45px] left-[10%] md:left-[15%]">
+                <div className="border-[1.5px] border-[#101010] rounded-full bg-cyan-400 px-6 py-2.5 md:px-9 md:py-3.5 flex items-center justify-center shadow-md transform rotate-[-1deg]">
+                  <span className="text-[13px] md:text-[16px] font-black tracking-widest text-cyan-950 uppercase">Analytics</span>
+                </div>
+              </div>
+              
+              {/* Element 5: Cyan/Green Pointer (Bottom Left) */}
+              <div className="absolute bottom-[-40%] md:bottom-[-45%] left-[33%] md:left-[36%] w-10 h-10 md:w-12 md:h-12 transform rotate-[15deg]">
+                <svg viewBox="0 0 28 28" fill="none" className="drop-shadow-[0_8px_16px_rgba(34,211,238,0.3)]">
+                  <path d="M 4 4 L 24 10 L 14 14 L 10 24 Z" fill="url(#grad_green)" stroke="url(#grad_green)" strokeWidth="3" strokeLinejoin="round" />
+                  <defs>
+                    <linearGradient id="grad_green" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#22d3ee" />
+                      <stop offset="100%" stopColor="#34d399" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+              
+              {/* Element 6: Rectangle below 'Media' */}
+              <div className="absolute md:bottom-[-65px] bottom-[-45px] right-[10%] md:right-[15%]">
+                <div className="border-[1.5px] border-[#101010] rounded-full bg-yellow-400 px-6 py-2.5 md:px-9 md:py-3.5 flex items-center justify-center shadow-md transform rotate-[2deg]">
+                  <span className="text-[13px] md:text-[16px] font-black tracking-widest text-yellow-950 uppercase">Content</span>
+                </div>
+              </div>
+
+              {/* Element 7: Cyan/Blue Pointer (Right side) */}
+              <div className="absolute top-[-10%] right-[-18%] md:right-[-15%] w-10 h-10 md:w-12 md:h-12 transform rotate-[-25deg]">
+                <svg viewBox="0 0 28 28" fill="none" className="drop-shadow-[0_8px_16px_rgba(37,99,235,0.3)]">
+                  <path d="M 4 4 L 24 10 L 14 14 L 10 24 Z" fill="url(#grad_blue)" stroke="url(#grad_blue)" strokeWidth="3" strokeLinejoin="round" />
+                  <defs>
+                    <linearGradient id="grad_blue" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#22d3ee" />
+                      <stop offset="100%" stopColor="#2563eb" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+
+              Brand Social Media
+            </div>
+          </h1>
+
+        </div>
+
+        {/* Button */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+          className="mt-8 md:mt-12"
+        >
+          <button className="px-8 py-3.5 md:px-10 md:py-4 rounded-full bg-[#101010] text-white font-[family-name:var(--font-inter)] font-bold text-base md:text-lg tracking-wide shadow-[0_10px_20px_rgba(0,0,0,0.08)] transition-all duration-300 hover:opacity-90">
+            Schedule Meeting
+          </button>
+        </motion.div>
+
+      </div>
     </section>
   );
 }
